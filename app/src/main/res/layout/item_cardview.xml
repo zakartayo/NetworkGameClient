@@ -6,14 +6,15 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+        android:id="@+id/cardview"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -21,7 +22,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/roomNum"
+                    android:id="@+id/room_title"
                     android:gravity="left"
                     android:textSize="16sp"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"
@@ -41,8 +42,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/state"
-                    android:gravity="left"
-                    android:textSize="16sp"
+                    android:gravity="right"
+                    android:textSize="12sp"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"
                     android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
 

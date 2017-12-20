@@ -14,10 +14,9 @@
         <activity
             android:name=".Activities.Activities.MainActivity"
             android:theme="@style/AppTheme.Dark"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity android:name=".Activities.Activities.LoginActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".Activities.Activities.LoginActivity"
             android:theme="@style/AppTheme.Dark"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -26,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.Activities.IngameActivity"></activity>
     </application>
 
 </manifest>

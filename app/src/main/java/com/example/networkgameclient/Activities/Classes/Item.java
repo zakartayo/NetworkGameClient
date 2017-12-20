@@ -6,35 +6,67 @@ package com.example.networkgameclient.Activities.Classes;
 
 public class Item {
 
-    String roomNum;
+    int roomNum;
     String roomState;
-    String state;
-    String numCount;
+    Boolean available;
+    int numCount;
+    String title;
+    boolean lock;
+    int port;
 
-    public String getRoomNum(){
+    public Item(){
+
+    }
+
+    public Item(int roomNum, String roomState, Boolean available, int numCount){
+        this.roomNum = roomNum;
+        this.roomState = roomState;
+        this.available = available;
+        this.numCount = numCount;
+    }
+
+    public int getRoomNum(){
         return this.roomNum;
     }
-    public String getState(){
-        return this.state;
+    public Boolean getAvailable(){
+        return this.available;
     }
     public String getRoomState(){
         return this.roomState;
     }
-    public String getNumCount(){
+    public int getNumCount(){
         return this.numCount;
     }
+    public String getTitle(){
+        return this.title;
+    }
+    public boolean getLock(){
+        return this.lock;
+    }
+    public int getPort(){
+        return this.port;
+    }
 
-    public void setRoomNum(String roomNum){
+    public void setRoomNum(int roomNum){
         this.roomNum = roomNum;
     }
-    public void setState(String state){
-        this.state = state;
+    public void setAvailable(Boolean available){
+        this.available = available;
     }
     public void setRoomState(String roomState){
         this.roomState = roomState;
     }
-    public void setNumCount(String numCount){
+    public void setNumCount(int numCount){
         this.numCount = numCount;
+    }
+    public void setTitle(String title){
+        this.title = title;
+    }
+    public void setLock(boolean lock){
+        this.lock = lock;
+    }
+    public void setPort(int port){
+        this.port = port;
     }
 
 }

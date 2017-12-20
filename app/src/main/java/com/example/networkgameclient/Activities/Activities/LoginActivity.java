@@ -35,12 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     Socket client;
     private int count=0;
     private FrameLayout not_logged;
-    private String ip = "192.168.43.176"; // IP
+    private String ip = "1.224.133.48"; // IP
     private int login_port = 29999; // PORT번호
-    private InputStream is;
-    private OutputStream os;
-    private DataInputStream dis;
-    private DataOutputStream dos;
+    public InputStream is;
+    public OutputStream os;
+    public DataInputStream dis;
+    public DataOutputStream dos;
     private boolean status, check;
     private Thread thread;
     ArrayList<String> users = new ArrayList<>();
@@ -67,16 +67,24 @@ public class LoginActivity extends AppCompatActivity {
                     login_id = nickName.getText().toString();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("nickname", login_id);
-                    startActivity(intent);
+                    nickName.setText("");
+
                     try {
-                        os.close();
-                        is.close();
-                        dos.close();
-                        dis.close();
+                        //if(os!=null)
+                            os.close();
+                       // if(is!=null)
+                            is.close();
+                        //if(dos!=null)
+                            dos.close();
+                        //if(dis!=null)
+                            dis.close();
+
                         client.close();
+
                     } catch (IOException e2) {
                         e2.printStackTrace();
                     }
+                    startActivity(intent);
                 }else{
                     Toast.makeText(mContext, "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -89,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 for(int i=0; i<users.size(); i++){
                     if(users.get(i).equals(login_id)){
-                        Toast.makeText(mContext, "중복된 아이디입니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, users.get(i), Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }
@@ -130,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                     thread.setDaemon(true);
                     thread.start();
 
-                } catch (Exception ex) {
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }

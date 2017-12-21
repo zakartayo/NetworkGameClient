@@ -3,6 +3,7 @@ package com.example.networkgameclient.Activities.Activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.networkgameclient.Activities.Classes.UserInfo;
 import com.example.networkgameclient.R;
 
@@ -57,6 +60,7 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
     final String USER_OUT = "/USER_OUT";
     final String READY = "/READY";
     final String UNREADY = "/UNREADY";
+    final String START = "/START";
 
     String login_id;
     String ingame_title;
@@ -80,6 +84,11 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
         ingame_port =getIntent().getIntExtra("ingame_port", -1);
         login_id = getIntent().getStringExtra("nickname");
         ingame_title = getIntent().getStringExtra("ingame_title");
+
+        ingame_editText.setEnabled(false);
+        ingame_editText.setClickable(false);
+        ingame_btn_send.setEnabled(false);
+        ingame_btn_send.setClickable(false);
 
         ingame_titletext.setText(ingame_title);
 
@@ -140,8 +149,7 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
         if(v.getId()==R.id.ingame_btn_send){
             if (!(ingame_editText.getText().equals(""))) {
                 String send = null;
-                send = "1" + "$" + "/USER_CHAT" + "$" + "[" +login_id+ "] "
-                        + ingame_editText.getText().toString();
+                send = "1" + "$" + "/USER_CHAT" + "$"  + ingame_editText.getText().toString() + "$" +1 +"$";
                 send_Message(send);
                 ingame_editText.setText("");
             }
@@ -183,9 +191,9 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
     Handler iuHandler = new Handler() {
         @SuppressWarnings("null")
         public void handleMessage(android.os.Message msg) {
-            for(int i=0; i<ingame_users.size(); i++){
-                ingame_user.append(ingame_users.get(i).getNickname() + "\n");
-            }
+
+                ingame_user.append(u_msg + "\n");
+
         }
     };
 
@@ -208,8 +216,8 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
                     if (cursor.equals(INGAME_COMMAND)) {
                         String command = st.nextToken();
                         if (command.equals(USER_LIST_ADD)) {
-                            String name = st.nextToken();
-                            UserInfo user = new UserInfo(name);
+                            u_msg = st.nextToken();
+                            UserInfo user = new UserInfo(u_msg);
                             ingame_users.add(user);
                             iuHandler.sendEmptyMessage(0);
                         } else if (command.equals(USER_LIST_REMOVE)) {
@@ -235,6 +243,46 @@ public class IngameActivity extends AppCompatActivity implements View.OnClickLis
                         } else if (command.equals(USER_CHAT)) {
                             r_msg = st.nextToken();
                             mHandler.sendEmptyMessage(0);
+                        } else if(command.equals(START)){
+
+                            Handler mHandler = new Handler(Looper.getMainLooper());
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    out.setEnabled(false);
+                                    out.setClickable(false);
+                                    ready.setEnabled(false);
+                                    ready.setClickable(false);
+                                }
+                            }, 0);
+
+
+                            String name = st.nextToken();
+                            if(name.equals(login_id)){
+                                Handler tHandler = new Handler(Looper.getMainLooper());
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ingame_btn_send.setEnabled(true);
+                                        ingame_btn_send.setClickable(true);
+                                        ingame_editText.setEnabled(true);
+                                        ingame_editText.setClickable(true);
+                                    }
+                                }, 0);
+
+                            }else{
+                                Handler sHandler = new Handler(Looper.getMainLooper());
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ingame_btn_send.setEnabled(false);
+                                        ingame_btn_send.setClickable(false);
+                                        ingame_editText.setEnabled(false);
+                                        ingame_editText.setClickable(false);
+                                    }
+                                }, 0);
+
+                            }
                         }
                     }
                 }

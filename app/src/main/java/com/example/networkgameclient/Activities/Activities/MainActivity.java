@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener{
     private Thread thread;
     public  ArrayList<Item> items = new ArrayList<>();
     public ArrayList<UserInfo> users = new ArrayList<>();
-    public String r_msg, login_id, makeRoomMSG, passwordCheck, stateCongif, getRoomInfo;
+    public String r_msg, u_msg, login_id, makeRoomMSG, passwordCheck, stateCongif, getRoomInfo;
     public int clickPosition;
 
 
@@ -278,9 +278,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener{
     Handler uHandler = new Handler() {
         @SuppressWarnings("null")
         public void handleMessage(android.os.Message msg) {
-            for(int i=0; i<users.size(); i++){
-                userView.append(users.get(i).getNickname() + "\n");
-            }
+
+                userView.append(u_msg + "\n");
+
         }
     };
     public Item refactorItem(StringTokenizer st, int roomNum){
@@ -341,8 +341,8 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener{
                     if (cursor.equals(LOBBY_COMMAND)) {
                         String command = st.nextToken();
                         if (command.equals(USER_LIST_ADD)) {
-                            String name = st.nextToken();
-                            UserInfo user = new UserInfo(name);
+                            u_msg = st.nextToken();
+                            UserInfo user = new UserInfo(u_msg);
                             users.add(user);
                             uHandler.sendEmptyMessage(0);
                         } else if (command.equals(USER_LIST_REMOVE)) {
@@ -476,7 +476,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener{
         @Override
         public void onBindViewHolder(MyAdapter.ViewHolder holder, final int position) {
 
-            if(mItems.get(position).getRoomState().equals("")){
+            if(mItems.get(position).getRoomState().equals("미개설")){
                 holder.roomState.setText("");
             }else{
                 holder.roomState.setText(mItems.get(position).getRoomState());

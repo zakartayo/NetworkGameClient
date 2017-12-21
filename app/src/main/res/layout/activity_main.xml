@@ -80,7 +80,8 @@
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"/>
 
                 </ScrollView>
                 <ScrollView
@@ -90,7 +91,8 @@
                     <TextView
                         android:id="@+id/users"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"/>
 
                 </ScrollView>
 
